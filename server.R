@@ -37,7 +37,31 @@ shinyServer(function(input, output) {
       plot(ecdf(data1), col="blue")
       plot(ecdf(data2), add=TRUE, col="red")
     }else{
+      data2 <- switch(
+        input$df,
+        "Beta" = rbeta(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Binomial" = rbinom(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Cauchy" = rcauchy(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Chi-Square" = rchisq(as.numeric(data1), as.numeric(input$parameter1)),
+        "Exponential" = rexp(as.numeric(data1), as.numeric(input$parameter1)),
+        "F" = rf(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Gamma" = rgamma(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Geometric" = rgeom(as.numeric(data1), as.numeric(input$parameter1)),
+        "Hypergeometric" = rhyper(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2), as.numeric(input$parameter3)),
+        "Logistic" = rlogis(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Log normal" = rlnorm(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Negative Binomial" = rnbinom(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2), as.numeric(input$parameter3)),
+        "Normal" = rnorm(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Poisson" = rpois(as.numeric(data1), as.numeric(input$parameter1)),
+        "Student" = rt(as.numeric(data1),as.numeric(input$parameter1)),
+        "Stuendentized Range" = rtukey(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Uniform" = runif(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Weibull" = rweibull(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Wilcoxon Rank Sum Statistic" = rwilcox(as.numeric(data1), as.numeric(input$parameter1), as.numeric(input$parameter2)),
+        "Wilcoxon Signed Rank Statistic" = rsignrank(as.numeric(data1), as.numeric(input$parameter1))
+      )
       plot(ecdf(data1), col="blue")
+      plot(ecdf(data2), add=TRUE, col="red")
     }
     
     
