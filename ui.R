@@ -40,8 +40,9 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
                                             ".csv")
                                 ) )     
     ),
-    column(8,
-             textOutput('cvsdata2')
+    column(8, conditionalPanel( condition = "output.choice == true && cvsdata2 != null",
+                                  textOutput('cvsdata2') ) 
+             
            
     )
   ),
@@ -71,12 +72,12 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
            conditionalPanel( condition = "output.choice == false && output.parameters >= 2",
                              textInput("parameter2", "Second parameter", width = 150) )  
            
-    )),
-  column(3,
-         conditionalPanel( condition = "output.choice == false && output.parameters >= 3",
-                           textInput("parameter3", "Third parameter", width = 150) )  
-         
-  )
+    ),
+    column(3,
+           conditionalPanel( condition = "output.choice == false && output.parameters >= 3",
+                             textInput("parameter3", "Third parameter", width = 150) )  
+           
+    )
     
   ),
   

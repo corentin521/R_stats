@@ -24,16 +24,23 @@ shinyServer(function(input, output) {
     read.csv(f2$datapath, header=FALSE, sep=",", quote="", dec=".", fill=FALSE, comment.char="")
   })
   output$plot <- renderPlot({
+    c <- input$choiceRb
     f1 <- input$csvfile1
     if (is.null(f1))
       return(NULL)
-    f2 <- input$csvfile2
-    if (is.null(f2))
-      return(NULL)
     data1 <- read.csv(f1$datapath, header=FALSE, sep=",", quote="", dec=".", fill=FALSE, comment.char="")
-    data2 <- read.csv(f2$datapath, header=FALSE, sep=",", quote="", dec=".", fill=FALSE, comment.char="")
-    plot(ecdf(data1), col="blue")
-    plot(ecdf(data2), add=TRUE, col="red")
+    if (c == "0"){
+      f2 <- input$csvfile2
+      if (is.null(f2))
+        return(NULL)
+      data2 <- read.csv(f2$datapath, header=FALSE, sep=",", quote="", dec=".", fill=FALSE, comment.char="")
+      plot(ecdf(data1), col="blue")
+      plot(ecdf(data2), add=TRUE, col="red")
+    }else{
+      plot(ecdf(data1), col="blue")
+    }
+    
+    
   })
   output$text <- renderUI({
     c <- input$choiceRb
@@ -89,11 +96,10 @@ shinyServer(function(input, output) {
                                as.numeric(input$parameter2))   
         } 
         if(nbParameters == 3){
-          p1 <- input$parameter1
-          p2 <- input$parameter2
              ksdata <- ks.test(as.numeric(data1), toString(distrib), 
-                               as.numeric(p1),
-                               as.numeric(p2))  
+                               as.numeric(input$parameter1),
+                               as.numeric(input$parameter2),
+                               as.numeric(input$parameter3))   
         }  
         
         HTML(paste("Results of the test",
