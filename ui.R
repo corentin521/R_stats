@@ -40,8 +40,8 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
                                             ".csv")
                                 ) )     
     ),
-    column(8, conditionalPanel( condition = "output.choice == true && cvsdata2 != null",
-                                  textOutput('cvsdata2') ) 
+    column(8, conditionalPanel( condition = "output.choice == true",
+                                tableOutput('cvsdata2') ) 
              
            
     )
